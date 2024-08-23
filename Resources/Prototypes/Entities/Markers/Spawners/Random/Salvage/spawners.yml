@@ -388,15 +388,15 @@
   table: !type:GroupSelector
     children:
     - id: MobCarpSalvage
-      weight: 70
+      weight: 60
     - id: MobCarpSalvage
       weight: 25
       amount: !type:RangeNumberSelector
         range: 1, 3
     - !type:AllSelector
-      weight: 5
+      weight: 15
       children:
-      - id: MobSharkSalvage
+      - id: MobShark
       - id: MobCarpSalvage
         amount: !type:ConstantNumberSelector
           value: 3
@@ -451,7 +451,7 @@
   - type: EntityTableSpawner
     table: !type:AllSelector
       children:
-      - id: MobSharkSalvage
+      - id: MobShark
       - id: MobCarpSalvage
         amount: !type:ConstantNumberSelector
           value: 3

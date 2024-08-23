@@ -16,6 +16,7 @@
     sprite: Nyanotrasen/Objects/Materials/materials.rsi
     state: bluespace
   result: MaterialBluespace1
-  completetime: 0
+  applyMaterialDiscount: false
+  completetime: 4
   materials:
-    RawBluespace: 100
+    Bluespace: 100

@@ -165,7 +165,6 @@
     - type: Loadout
       prototypes: [ ERTChaplainGear ]
       roleLoadout: [ RoleSurvivalExtended ]
-    - type: BibleUser
 
 - type: entity
   id: RandomHumanoidSpawnerERTChaplainEVA
@@ -191,7 +190,6 @@
     - type: Loadout
       prototypes: [ ERTChaplainGearEVA ]
       roleLoadout: [ RoleSurvivalEVA ]
-    - type: BibleUser
 
 ## ERT Janitor
 

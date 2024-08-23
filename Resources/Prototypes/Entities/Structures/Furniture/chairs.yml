@@ -47,7 +47,7 @@
         sound:
           collection: MetalBreak
   - type: StaticPrice
-    price: 50
+    price: 10
 
 #Starts unanchored, cannot be rotated while anchored
 - type: entity
@@ -400,4 +400,4 @@
             min: 2
             max: 4
   - type: StaticPrice
-    price: 50
+    price: 20

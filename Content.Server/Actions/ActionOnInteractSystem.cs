@@ -154,6 +154,21 @@ public sealed class ActionOnInteractSystem : EntitySystem
         args.Handled = true;
     }
 
+    private bool ValidAction(BaseActionComponent action, bool canReach = true)
+    {
+        if (!action.Enabled)
+            return false;
+
+        if (action.Charges.HasValue && action.Charges <= 0)
+            return false;
+
+        var curTime = _timing.CurTime;
+        if (action.Cooldown.HasValue && action.Cooldown.Value.End > curTime)
+            return false;
+
+        return canReach || action is BaseTargetActionComponent { CheckCanAccess: false };
+    }
+
     private List<(EntityUid Id, T Comp)> GetValidActions<T>(List<EntityUid>? actions, bool canReach = true) where T : BaseActionComponent
     {
         var valid = new List<(EntityUid Id, T Comp)>();
@@ -165,7 +180,7 @@ public sealed class ActionOnInteractSystem : EntitySystem
         {
             if (!_actions.TryGetActionData(id, out var baseAction) ||
                 baseAction as T is not { } action ||
-                !_actions.ValidAction(action, canReach))
+                !ValidAction(action, canReach))
             {
                 continue;
             }

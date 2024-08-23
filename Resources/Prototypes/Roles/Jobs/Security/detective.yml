@@ -17,8 +17,7 @@
   - Maintenance
   #- Service # Delta V: Access adjustments
   - Detective
-  - Cryogenics
-  - External
+  - Cryogenics # Delta V: Access adjustments
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
