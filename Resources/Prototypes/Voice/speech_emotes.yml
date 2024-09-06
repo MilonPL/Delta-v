@@ -264,6 +264,9 @@
   whitelist:
     components:
     - Respirator
+  blacklist: # DeltaV
+    components:
+    - HTN # This technically affects all NPCs and not just animals, but it probably doesn't matter
   chatMessages: ["chat-emote-msg-gasp"]
   chatTriggers:
    - gasp
