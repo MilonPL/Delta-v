@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server.Bible.Components;
 using Content.Server.Nyanotrasen.Cloning;
 using Content.Shared.Abilities.Psionics;
@@ -6,10 +7,12 @@ using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared.Database;
 using Content.Shared.DeltaV.Chapel;
+using Content.Shared.DeltaV.Golemancy.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.EntityTable;
 using Content.Shared.Humanoid;
 using Content.Shared.Mind;
+using Content.Shared.Mind.Components;
 using Content.Shared.Popups;
 using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Audio.Systems;
@@ -63,12 +66,15 @@ public sealed class SacrificialAltarSystem : SharedSacrificialAltarSystem
         // spawn all the loot
         var proto = _proto.Index(ent.Comp.RewardPool);
         var coords = Transform(ent).Coordinates;
-        foreach (var id in _entityTable.GetSpawns(proto.Table))
-        {
-            Spawn(id, coords);
-        }
+        var spawnedEntities = _entityTable.GetSpawns(proto.Table).Select(id => Spawn(id, coords)).ToList();
 
-        // TODO GOLEMS: create a soul crystal and transfer mind into it
+        // Find the soul crystal among the spawned loot
+        var soulCrystal = spawnedEntities.FirstOrDefault(e => HasComp<SoulCrystalComponent>(e));
+
+        // Ensure the MindContainerComponent is present
+        EnsureComp<MindContainerComponent>(soulCrystal);
+        _mind.TransferTo(mindId, soulCrystal, mind: mind);
+        _popup.PopupEntity(Loc.GetString("soul-trapped-in-crystal", ("target", target)), soulCrystal, PopupType.LargeCaution);
 
         // finally gib the targets old body
         if (TryComp<BodyComponent>(target, out var body))
